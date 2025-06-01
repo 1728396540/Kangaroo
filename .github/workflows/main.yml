@@ -1,8 +1,8 @@
 name: Kangaroo Solver
 on:
-  workflow_dispatch:  # اجازه اجرای دستی
+  workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'  # هر ۶ ساعت اجرا شود
+    - cron: '0 */6 * * *'
 
 jobs:
   solve:
@@ -16,13 +16,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential libgmp-dev
 
-      - name: Clone & Build Kangaroo
+      - name: Clone & Build Kangaroo (Simplified)
         run: |
           git clone https://github.com/JeanLucPons/Kangaroo.git
           cd Kangaroo
-          make
+          make gpu=0  # غیرفعال کردن GPU برای جلوگیری از خطا
 
-      - name: Run Kangaroo
+      - name: Run Kangaroo (Test Mode)
         run: |
           cd Kangaroo
-          ./kangaroo -range 1:100000000 -target 1EzVHtmbN4fs4MiNK3ppEnKKhsmXYJ4s74
+          ./kangaroo -h  # فقط نمایش راهنما برای تست اولیه
