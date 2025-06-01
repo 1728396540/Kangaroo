@@ -8,21 +8,13 @@ jobs:
   solve:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Install Dependencies
+      - uses: actions/checkout@v2
+      
+      - name: Download Pre-built Kangaroo
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libgmp-dev
-
-      - name: Clone & Build Kangaroo (Simplified)
-        run: |
-          git clone https://github.com/JeanLucPons/Kangaroo.git
-          cd Kangaroo
-          make gpu=0  # غیرفعال کردن GPU برای جلوگیری از خطا
-
+          wget https://github.com/JeanLucPons/Kangaroo/releases/download/v2.2/kangaroo_linux
+          chmod +x kangaroo_linux
+          
       - name: Run Kangaroo (Test Mode)
         run: |
-          cd Kangaroo
-          ./kangaroo -h  # فقط نمایش راهنما برای تست اولیه
+          ./kangaroo_linux -h  # تست اجرا
